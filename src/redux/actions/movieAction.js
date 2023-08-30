@@ -6,15 +6,21 @@ import api from "../api";
 const API_KEY = process.env.REACT_APP_API_KEY;
 function getMovies() {
   return async (dispatch) => {
-    const popularMovieApi = await api.get(`/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
+    const popularMovieApi = api.get(`/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
+    const topRateApi = api.get(`/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
+    const upComingApi = api.get(`/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`);
 
-    // let url = `/movie/popular?language=en-US&page=1`
-    // let resposne = await fetch(url)
-    // let data = await resposne.json()
+    let [popularMovies, topRateMovies, upComingMovies] = await Promise.all([popularMovieApi, topRateApi, upComingApi]);
+    //promise.all는 각각의 api를 동시에 호출할 동안 한번만 기다리게 해준다.
 
-    // let url2 = `/movie/top_rated?language=en-US&page=1`
+    console.log(popularMovies);
+    console.log(topRateMovies);
+    console.log(upComingMovies);
 
-    // let url3 = `/movie/upcoming?language=en-US&page=1`
+    dispatch({
+      type: "GET_MOVIES_SUCCESS",
+      payload: { popularMovies: popularMovies.data, topRateMovies: topRateMovies.data, upComingMovies: upComingMovies.data },
+    });
   };
 }
 
