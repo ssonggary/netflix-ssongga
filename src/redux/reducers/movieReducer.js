@@ -3,6 +3,7 @@ let initialState = {
   topRatedMovies: {},
   upComingMovies: {},
   loading: true,
+  genreList: [],
 };
 
 function movieReducer(state = initialState, action) {
@@ -12,7 +13,14 @@ function movieReducer(state = initialState, action) {
       return { ...state, loading: true };
 
     case "GET_MOVIES_SUCCESS":
-      return { ...state, popularMovies: payload.popularMovies, topRatedMovies: payload.topRatedMovies, upComingMovies: payload.upComingMovies, loading: false };
+      return {
+        ...state,
+        popularMovies: payload.popularMovies,
+        topRatedMovies: payload.topRatedMovies,
+        upComingMovies: payload.upComingMovies,
+        genreList: payload.genreList,
+        loading: false,
+      };
 
     case "GET_MOVIES_FAILURE":
       return { ...state, loading: false };

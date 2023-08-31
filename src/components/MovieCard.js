@@ -1,14 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Badge from "react-bootstrap/Badge";
 
 const MovieCard = ({ item }) => {
+  const { genreList } = useSelector((state) => state.movie);
+
   return (
     <div className="card" style={{ backgroundImage: "url(" + `https://www.themoviedb.org/t/p/w355_and_h200_multi_faces${item.poster_path}` + ")" }}>
       <div className="overlay">
         <h1>{item.title}</h1>
         <div>
           {item.genre_ids.map((id) => (
-            <Badge bg="danger">{id}</Badge>
+            <Badge bg="danger">{genreList.find((item) => item.id == id).name}</Badge>
           ))}
         </div>
         <div>
