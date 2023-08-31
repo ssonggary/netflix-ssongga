@@ -1,14 +1,14 @@
-import React, { useEffect, CSSProperties } from "react";
+import React, { useEffect } from "react";
 import { movieAction } from "../redux/actions/movieAction";
 import { useDispatch, useSelector } from "react-redux";
 import Banner from "../components/Banner";
 import MovieSlide from "../components/MovieSlide";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const override: CSSProperties = {
-  display: "block",
-  margin: "0 auto",
-};
+// const override: CSSProperties = {
+//   display: "block",
+//   margin: "0 auto",
+// };
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,8 +22,9 @@ const Home = () => {
   //loding이 false면 데이터를 보여주고
   //true : 데이터 도착 전
   //false면 : 데이터 도착 후, 에러가 났을때
+  //cssOverride={override}
   if (loading) {
-    return <ClipLoader color="#fff" loading={loading} cssOverride={override} size={150} aria-label="Loading Spinner" data-testid="loader" />;
+    return <ClipLoader color="#fff" loading={loading} size={150} aria-label="Loading Spinner" data-testid="loader" />;
   }
 
   return (
